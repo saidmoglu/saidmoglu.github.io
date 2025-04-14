@@ -26,7 +26,7 @@ I worked on media safety team where we ensure generated images are safe for user
 
 - [Meta FAIR: Make-A-Video](https://makeavideo.studio/)
 
-I joined a research group at FAIR where I contributed to Make-A-Video: a text to video generation research project. I was re-organized to work on Meta Gen AI next.
+I joined a research group at FAIR where I contributed to Make-A-Video: a text to video generation research project. I developed large-scale training dataset curation pipelines for videos from both infrastructure as well as ML aspects. I was then moved to the new Meta Gen AI group (media safety project above).
 
 ### Experience and Education
 
