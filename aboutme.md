@@ -10,7 +10,7 @@ Hi There! My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrate
 
 I'm a software engineer in Silicon Valley. My interests include generative AI, machine learning, and software systems. More generally, I love technology and I'm always eager to learn new technical skills.
 
-My hobbies include all kinds of puzzles and reading.
+My hobbies include all kinds of puzzles, reading, camping, and board games.
 
 ### Recent Professional Projects
 

@@ -9,4 +9,6 @@ tags: [meta]
 author: Mustafa Said Mehmetoglu
 ---
 
-Welcome to my blog! I will be posting about my work, personal projects and thoughts here. 
+Welcome to my blog! I will be posting about my work, personal projects, hobbies and thoughts here.
+
+The default image that came with the theme seemed appropriate: I have a long road ahead of me to build a meaningful and beneficial blog.

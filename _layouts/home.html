@@ -39,16 +39,16 @@ layout: page
       <a href="{{ post.url | absolute_url }}">
         <h2 class="post-title">{{ post.title | strip_html }}</h2>
 
-        {% if post.subtitle %}
+        <!-- {% if post.subtitle %}
           <h3 class="post-subtitle">
           {{ post.subtitle | strip_html }}
           </h3>
-        {% endif %}
+        {% endif %} -->
       </a>
 
-      {% if post.author %}
+      <!-- {% if post.author %}
         <span>By <strong>{{ post.author | strip_html }}</strong></span>
-      {% endif %}
+      {% endif %} -->
       <p class="post-meta">
         {% assign date_format = site.date_format | default: "%B %-d, %Y" %}
         Posted on {{ post.date | date: date_format }}

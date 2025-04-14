@@ -511,12 +511,13 @@ footer .footer-custom-content {
 }
 
 .post-preview .post-title {
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   margin-top: 0;
 }
 .post-preview .post-subtitle {
   margin: 0;
-  font-weight: 300;
+  font-weight: 100;
+  font-size: 1.125rem;
   margin-bottom: 0.625rem;
 }
 .post-preview .post-meta,
@@ -595,7 +596,7 @@ footer .footer-custom-content {
 
 @media (min-width: 768px) {
   .post-preview .post-title {
-    font-size: 2.25rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -765,7 +766,7 @@ nav.top-nav-short-permanent ~ header > .intro-header.big-img {
     padding: 9.375rem 0;
   }
   .intro-header .page-heading h1 {
-    font-size: 5rem;
+    font-size: 2rem;
   }
   .intro-header .post-heading h1 {
     font-size: 3.125rem;
