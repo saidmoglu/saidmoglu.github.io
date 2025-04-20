@@ -6,9 +6,9 @@ subtitle: Software Engineer
 
 ### Summary
 
-Hi There! My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in the Bay Area since 2016.
+My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in the Bay Area since 2016.
 
-I'm a software engineer in Silicon Valley. My interests include generative AI, machine learning, and software systems. More generally, I love technology and I'm always eager to learn new technical skills.
+I started my career as a systems engineer in telecommunications (5G). I then transitioned to software engineering roles, and recently ML. My interests include software systems, machine learning, and generative AI. More generally, I love technology and I'm always eager to learn new technical skills.
 
 My hobbies include all kinds of puzzles, reading, camping, and board games.
 

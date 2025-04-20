@@ -1,0 +1,19 @@
+/* Wider containers */
+.container-md {
+    max-width: 1200px;  /* Increase from default 960px */
+}
+
+/* Adjust column widths in posts/pages */
+@media (min-width: 1200px) {
+    .col-xl-8.offset-xl-2 {
+        flex: 0 0 80%;  /* Increase from default 66.66667% */
+        max-width: 80%;
+        margin-left: 10%; /* Adjust from default offset */
+    }
+    
+    .col-lg-10.offset-lg-1 {
+        flex: 0 0 90%;
+        max-width: 90%;
+        margin-left: 5%;
+    }
+}
