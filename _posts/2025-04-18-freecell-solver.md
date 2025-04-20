@@ -14,7 +14,7 @@ As you can see, I have solved over 500 levels. Yes, I am really into this game. 
 
 I sometimes run into particularly stubborn levels that require a lot of backtracking. I was curious if I could write a solver for it. Additionally, I wanted to know if there are unsolvable cases. Again, a solver could be useful to verify if a level is unsolvable. It turned into a fun weekend project.
 
-## Game Rules
+### Game Rules
 - The game starts with cards dealt into tableau piles. There are 8 tableau piles, 4 temporary slots, and 4 foundation piles.
 - A card can be moved to another pile if the destination pile has a card of the opposite color, with a value one higher.
 - Cards can be moved as a group if the group forms a descending sequence of alternating colors.
@@ -50,7 +50,7 @@ As an example, using the above starting position, the following sequence of move
 
 Certain moves are a "no-brainer": If the lowest card value in the foundation is x, then any card with value x+1 or x+2 can be moved to foundation without hesitation, that is, there is no reason not to make such a move. For example, in the initial state, since there are no cards in the foundation piles (x=0), any Ace or 2 can be moved to the foundation immediately. The iOS app does this and we also take advantage of it in our solver.
 
-## Core Implementation
+### Core Implementation
 The game state is represented by three main components:
 1. Tableau piles (main playing area)
 2. Foundation piles (goal area, building up from Ace by suit)
@@ -68,7 +68,7 @@ class GameState:
 
 The GameState class has various methods to validate and move cards, check the game state, and display it in different ways. The most important method is the heuristic function that estimates how far a state is from the solution. It is used in A* search algorithm.
 
-## The A* Search Algorithm
+### The A* Search Algorithm
 For the solver, I used the A* search algorithm. This algorithm essentially combines breadth-first search with a priority queue to prioritize exploring **promising** states first. A promising state is one that is likely to lead to the solution. We estimate how close a state is to the solution using a heuristic function: the lower the heuristic value, the closer the state is to the goal. 
 
 At a high level, the algorithm works as follows:
@@ -88,7 +88,7 @@ If no solution is found after all possibilities are checked, return failure.
 
 In general, if the initial state is solvable, the algorithm will find the solution eventually no matter how good or bad the heuristic is: The breadth-first search will eventually explore all possible moves. However, a good heuristic can significantly reduce the number of states explored. In fact, the difficult part is coming up with a good heuristic
 
-## Heuristic Function
+### Heuristic Function
 
 I iterated over many versions of the heuristic function. When I play the game myself, I try to move towards a state where I can reach the lowest valued cards in the tableau; for instance, initially, I aim to reach the Aces. I tried to capture this in the heuristic function.
 
@@ -133,7 +133,7 @@ Here are 3 possible next states after one move. Ignoring the other possible move
 </div>
 </details>
 
-## Results and Insights
+### Results and Insights
 I have manually entered various test cases from difficult levels, as well as randomly generated states. The solver was able to solve all of them. I never encountered an unsolvable state.
 
 Regarding the power factor: It is on average best to set it to 0, which means the base cost per card is not scaled. For some cases, however, a higher power factor can be more effective. A more advanced algorithm might dynamically adjust the power factor based on the progress or the current game state.
