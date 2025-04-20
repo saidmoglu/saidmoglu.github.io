@@ -17,3 +17,38 @@
         margin-left: 5%;
     }
 }
+
+/* About page styles */
+.about-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-image {
+    flex: 0 0 300px;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .about-image {
+        flex: 0 0 auto;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}

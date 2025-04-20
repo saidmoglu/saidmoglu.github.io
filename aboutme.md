@@ -6,11 +6,20 @@ subtitle: Software Engineer
 
 ### Summary
 
-My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in the Bay Area since 2016.
+<div class="about-container">
+  <div class="about-text">
+    
 
-I started my career as a systems engineer in telecommunications (5G). I then transitioned to software engineering roles, and recently ML. My interests include software systems, machine learning, and generative AI. More generally, I love technology and I'm always eager to learn new technical skills.
-
-My hobbies include all kinds of puzzles, reading, camping, and board games.
+    My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in the Bay Area since 2016.
+<br><br>
+    I started my career as a systems engineer in telecommunications (5G). I then transitioned to software engineering roles, and recently ML. My interests include software systems, machine learning, and generative AI. More generally, I love technology and I'm always eager to learn new technical skills.
+<br><br>
+    My hobbies include all kinds of puzzles, reading, camping, and board games.
+  </div>
+  <div class="about-image">
+    <img src="/assets/img/website-mustafa-full.jpeg" alt="Mustafa Said Mehmetoglu">
+  </div>
+</div>
 
 ### Recent Professional Projects
 
