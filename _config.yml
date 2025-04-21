@@ -226,30 +226,30 @@ gtag: "G-XESZGSLQVP"
 # https://github.com/eduardoboucas/staticman/ and https://staticman.net/ for further
 # instructions. For any support with staticman please direct questions to staticman and
 # not to BeautifulJekyll.
-#staticman:
-#  repository : # GitHub username/repository eg. "daattali/beautiful-jekyll"
-#  branch     : master # If you're not using `master` branch, then you also need to update the `branch` parameter in `staticman.yml`
-#  endpoint   : # URL of your deployment, with a trailing slash eg. "https://<your-api>/v3/entry/github/"
-#  reCaptcha:   # (optional, set these parameters in `staticman.yml` as well)
-#    siteKey  : # You need to apply for a site key on Google
-#    secret   : # Encrypt your password by going to https://<your-own-api>/v3/encrypt/<your-site-secret>
+staticman:
+ repository : saidmoglu/saidmoglu.github.io # GitHub username/repository eg. "daattali/beautiful-jekyll"
+ branch     : master # If you're not using `master` branch, then you also need to update the `branch` parameter in `staticman.yml`
+ endpoint   : https://staticman-saidmoglu.onrender.com/v3/entry/github/ # URL of your deployment, with a trailing slash eg. "https://<your-api>/v3/entry/github/"
+ reCaptcha:   # (optional, set these parameters in `staticman.yml` as well)
+   siteKey  : # You need to apply for a site key on Google
+   secret   : # Encrypt your password by going to https://<your-own-api>/v3/encrypt/<your-site-secret>
 
 # To use giscus comments:
 # (0) Uncomment the following giscus section, (1) Enable Discussions in your GitHub repository,
 # (2) Install the giscus app in your repository (details at https://giscus.app),
 # (3) Fill in *all* the parameters below
 # See more details about giscus and each of the following parameters at https://giscus.app
-giscus:
-  hostname: giscus.app # Replace with your giscus instance's hostname if self-hosting
-  repository: saidmoglu/saidmoglu.github.io # GitHub username/repository eg. "daattali/beautiful-jekyll"
-  repository-id: R_kgDOOZABXw # ID of your repository, retrieve this info from https://giscus.app
-  category: Announcements # Category name of your GitHub Discussion posts
-  category-id: DIC_kwDOOZABX84CpERD # ID of your category, retrieve this info from https://giscus.app
-  mapping: pathname
-  reactions-enabled: 1
-  emit-metadata: 0
-  theme: light
-  data-input-position: top
+# giscus:
+#   hostname: giscus.app # Replace with your giscus instance's hostname if self-hosting
+#   repository: saidmoglu/saidmoglu.github.io # GitHub username/repository eg. "daattali/beautiful-jekyll"
+#   repository-id: R_kgDOOZABXw # ID of your repository, retrieve this info from https://giscus.app
+#   category: Announcements # Category name of your GitHub Discussion posts
+#   category-id: DIC_kwDOOZABX84CpERD # ID of your category, retrieve this info from https://giscus.app
+#   mapping: pathname
+#   reactions-enabled: 1
+#   emit-metadata: 0
+#   theme: light
+#   data-input-position: top
 
 ################
 # --- Misc --- #
