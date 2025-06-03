@@ -1,0 +1,24 @@
+%%{init: {'theme':'base'}}%%
+flowchart TD
+    %% Nodes
+        U("User's Query: Can I get a refund for my last month's subscription?")
+        LLM[LLM]
+        GP(generate_document_response)
+        GPD[document_number: 1]
+        GA(generate_account_response)
+        GAD[requested_account_info: subscription_info]
+        FA(FinalAnswer)
+        U2(Reply: Hello Mustafa. Here is a document from our website you may find helpful... and here is your relevant account information...)
+
+    %% Edge connections between nodes
+    U --> LLM
+    LLM --- GPD --> GP
+    LLM --- GAD --> GA
+    GP --> FA
+    GA --> FA
+    FA --> U2
+
+    %% %% Styles
+    style GAD fill:#b3d1ff,stroke:#333,stroke-width:0px,color:#003366
+    style GPD fill:#b3d1ff,stroke:#333,stroke-width:0px,color:#003366
+    %% style U2 fill:#b3ffb3,stroke:#333,stroke-width:2px,color:#145214

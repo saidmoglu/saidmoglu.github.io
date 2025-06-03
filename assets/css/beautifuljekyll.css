@@ -891,6 +891,7 @@ pre {
   border: none;
   background: none;
   margin: 0;
+  white-space: pre-wrap;
 }
 .highlight > pre {
   background-image: linear-gradient(

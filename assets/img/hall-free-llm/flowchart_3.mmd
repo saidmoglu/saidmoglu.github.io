@@ -1,0 +1,24 @@
+%%{init: {'theme':'base'}}%%
+flowchart TD
+    %% Nodes
+        U("User's Query: My average spending last year?")
+        LLM[LLM]
+        GS(get_spending_data)
+        A(apply_aggregation)
+        FA(FinalAnswer)
+        U2(Reply: Hello Mustafa. Here is the spending information you requested...)
+        HR(Hallucination Risk)
+
+    %% Edge connections between nodes
+    U --> LLM
+    LLM ---> |1: time_period: last year| GS
+    GS --> |2: spending data| LLM
+    LLM --> |3: Spending data and aggregation type| A
+    A --> FA
+    FA --> U2
+    HR -.-> A
+
+    %% Styles
+    style U2 fill:#b3ffb3,stroke:#333,stroke-width:2px,color:#145214
+    style HR fill:#ffb3b3,stroke:#b30000,stroke-width:2px,color:#b30000
+    
