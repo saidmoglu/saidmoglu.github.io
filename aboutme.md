@@ -10,7 +10,7 @@ subtitle: Software Engineer
   <div class="about-text">
     
 
-    My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in the Bay Area since 2016.
+    My name is Mustafa Said Mehmetoglu. I was born in Turkiye, and migrated to USA in 2011 for PhD. I have been living in silicon Valley since 2016.
 <br><br>
     I started my career as a systems engineer in telecommunications (5G). I then transitioned to software engineering roles, and recently ML. My interests include software systems, machine learning, and generative AI. More generally, I love technology and I'm always eager to learn new technical skills.
 <br><br>
@@ -27,7 +27,7 @@ In reverse chronological order:
 
 - [Pure Storage AI Copilot (Press Release)](https://investor.purestorage.com/news-and-events/press-releases/press-release-details/2024/Industry-First-Innovations-in-the-Pure-Storage-Platform-Help-Customers-Keep-Pace-with-AIs-Rapid-Evolution/default.aspx)
 
-A chat bot that helps our customers and partners with managing their storage infrastructure. I am one of the lead developers driving the design and development of multiple agents and components of the project.
+A chat bot that helps our customers and partners with managing their storage infrastructure. I am one of the lead developers driving the design and development of multiple agents and components of the project. [Blog Post](https://blog.purestorage.com/products/pure-storage-ai-copilot-storage-management/).
 
 - [Meta Gen AI: Image Generation on Whatsapp and Messenger](https://www.meta.com/help/artificial-intelligence/1337455336906126/)
 

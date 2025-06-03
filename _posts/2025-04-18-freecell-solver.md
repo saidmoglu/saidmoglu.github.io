@@ -4,6 +4,7 @@ title: Building a Solitaire (FreeCell) Solver
 subtitle: Exploring Game State Search with A* Algorithm
 tags: [algorithms, python, games]
 thumbnail-img: /assets/img/freecell/r_IMG_4972.png
+share-img: /assets/img/freecell/r_IMG_4972.png
 ---
 
 I have been playing a solitaire-like game called FreeCell, as part of the iOS app "Offline Games". The game is similar to solitaire - the goal is to move all cards to foundation piles, starting with aces and building up by suit.

@@ -4,6 +4,7 @@ title: How I Added Comments to My Blog
 subtitle: A step-by-step guide to implementing a static commenting system for Github Pages
 tags: [blog, staticman, comments]
 thumbnail-img: /assets/img/staticman/staticman.png
+share-img: /assets/img/staticman/staticman.png
 ---
 
 Scroll down to the bottom of this post and you will see a comment form. Would you believe me if I told you that it took me 4 hours of vibe coding (AI coding) to develop and deploy this commenting system?
