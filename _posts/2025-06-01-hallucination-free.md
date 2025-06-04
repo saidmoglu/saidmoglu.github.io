@@ -11,7 +11,7 @@ I recently had an exchange on Linkedin where I claimed that a hallucination free
 
 ![Linkedin Exchange](/assets/img/hall-free-llm/linkedin-exchange.png){: width="600px" .mx-auto.d-block :}
 
-Luckily, I do have some experience to have an idea of what I am talking about, as I am part of the team developing [AI Copilot by Pure Storage](https://blog.purestorage.com/products/pure-storage-ai-copilot-storage-management/), and I will explain my idea here. But first, let me clarify a few important points.
+Luckily, I do have some experience with GenAI to have an idea of the concept (given that I am part of the team developing [AI Copilot by Pure Storage](https://blog.purestorage.com/products/pure-storage-ai-copilot-storage-management/)), and I will explain my idea here. But first, let me clarify a few important points.
 
 {: .box-note}
 **Disclaimer:** This post is not about the AI Copilot by Pure Storage, this is just my personal blog. All views and suggestions here are my own, and do not represent my employer or any current project.
@@ -19,7 +19,7 @@ Luckily, I do have some experience to have an idea of what I am talking about, a
 ### Clarifications
 - **Hallucination**: Hallucination refers to the generation of false or misleading information that is not grounded in reality. It is a well-known issue with LLMs, and it can lead to serious problems in applications that rely on LLMs to generate responses.
 - **LLMs will always hallucinate**: I agree that LLMs will always hallucinate, but this does not mean that we cannot build applications that are hallucination free from the user's perspective. That is, the application will not present any false information to the user.
-- **Absolutely No Hallucination**: There are approaches out there that will **reduce** hallucination, such as always trying to add relevant context to the LLM prompt (RAG etc), adding a second check on the final response etc. However, these approaches will not guarantee that the final response is free of hallucination. In our design we are aggressively going after hallucinations at the expense of flexibility.
+- **Absolutely No Hallucination**: There are approaches out there that will **reduce** hallucination, such as always trying to add relevant context to the LLM prompt (e.g. RAG), adding a second check on the final response, and so on. However, these approaches will not guarantee that the final response is free of hallucination. In our design we are aggressively going after hallucinations at the expense of flexibility.
 - **Limitations**: As I will explain, there are several limitations to this approach, and it is not suitable for all products. For instance, I don't think it is suitable for a coding assistant like Github Copilot.
 - **Not A Coding Tutorial**: I may provide snippets of code or pseudo code in this post, but this is not a coding tutorial. This is a high-level design discussion.
 
@@ -39,7 +39,7 @@ So let's design an AI support agent that will never hallucinate. The agent will 
 
 
 ### The First Steps
-The core idea is to generate the final response using deterministic software components, rather than relying on the LLM to generate the final response. The LLM will be used as an orchestrator to gather the necessary information and call final response tools.
+The core idea is to generate the final response using deterministic software components, rather than relying on the LLM to generate the final response. The LLM will be used as an orchestrator to make tool calls for gathering and processing the necessary information, and it will call final response tools which will generate our email response.
 
 Our first tool generates a response from Company policies and documentation. It is almost a RAG ( Retrieval-Augmented Generation ) tool, but you will see an essential difference: we will not return the retrieved documents to the LLM, we will directly send them (or maybe links to them) to the user. Let's call it `generate_document_response`. Let's number the company documents, and the LLM can call this tool with a number to get a response generated.
 
@@ -88,22 +88,22 @@ class FinalAnswer:
         # email answer to user
 ```
 
-We can have the following context for the LLM:
+We can have a context like the following (kept short for brevity) for the LLM:
 ```python
-context = "You are an AI support agent. You can answer questions about the company's policies, documents, and user's account information. You will use the generate_document_response tool to generate responses from company documents, and the generate_account_response tool to generate responses from user's account information. You will never generate a final response yourself, you will always call one of these tools which will generate the final response for you."
+context = "You are an AI support agent. You can answer questions about the company's policies, documents, and user's account information. You will use the generate_document_response tool to generate responses from company documents, and the generate_account_response tool to generate responses from user's account information. You will never generate a final response yourself, you will call these tools which will generate the final response for you."
 ```
 
 Now, if the user asks a question such as "Can I get a refund for my last month's subscription?", the LLM will recognize that this question is related to the refund policy and user's subscription information. It will call the `generate_document_response` tool with the document number for the refund policy, and the `generate_account_response` with `subscription_info`.
 
 ![LLM Response Flow](/assets/img/hall-free-llm/flowchart_1.svg){: width="500px" .mx-auto.d-block :}
 
-But clearly, the LLM does not **directly** answer the question, it will be up to the user to read the refund policy and see if they are eligible for a refund. This brings us to a major limitation of this approach.
+But clearly, our response is not a **direct** answer the question, it will be up to the user to read the refund policy and see if they are eligible for a refund. This brings us to a major limitation of this approach.
 
 {: .box-warning}
-**Limitation: Limited Flexibility:** In this approach, we are limited by the flexibility of our final response functions.
+**Limitation: Limited Flexibility:** In this approach, the writing of our responses is limited by the flexibility of our final response tooling.
 
 ### Always Include All Relevant Data In Final Response
-Let's say we want to be able to answer questions like "How much have I spent on my subscriptions so far?", "How much have I spent monthly this year?", etc. We can just add a tool to generate a response based on the user's spending history and an aggregation function. Let's call this tool `generate_spending_response`.
+Let's say we want to be able to answer questions like "How much have I spent on my subscriptions so far?", "How much have I spent monthly this year?", etc. We can add a tool to generate a response based on the user's spending history and an aggregation function. Let's call this tool `generate_spending_response`.
 
 ```python
 def generate_spending_response(time_period, aggregation=None):
@@ -131,13 +131,15 @@ Note that we do not guarantee that the final response will satisfy the user's qu
 {: .box-warning}
 **Limitation: Query - Answer Mismatch:** The answer may not satisfy the user's question, it may provide useful data or completely irrelevant data. However, it will be factually correct. The user will have to read the response and decide if it is relevant to their question. This is a deliberate trade-off for correctness over convenience.
 
-For another example, let's say the user's question was "How much have I spent on my subscriptions last year?", but the LLM incorrectly called the tool with the time period "year=2023" (even though the user probably meant 2024). The final response will still include the time period, so the user can see that the answer is using data from 2023. But what if the user doesn't pay attention to the time period detail? In this case the user will misunderstand the response, assuming the number they see is for year 2024 since that was their question. This brings us to another limitation/UX risk of this approach.
+For another example, let's say the user's question was "How much have I spent on my subscriptions last year?", but the LLM incorrectly called the tool with the time period "year=2023" (even though the user probably meant 2024). The final response will still include the time period, so the user can see that the answer is using data from 2023. But what if the user doesn't pay attention to the time period detail? In this case the user will misunderstand the response, assuming the number they see is for the year 2024 since that was their question. This brings us to another limitation/UX risk of this approach.
 
 {: .box-warning}
-**Limitation: UX Risk:** The LLM is not guaranteed to call the correct tool with the correct parameters. Although we can ensure all relevant data is included in the final response, the user might still be misled simply because they may not read the final response carefully and notice the incorrect details. We (probably) shifted the legal responsibility to the user, but this is still losing business.
+**Limitation: UX Risk:** The LLM is not guaranteed to call the correct tool with the correct parameters. Although we can ensure all relevant data is included in the final response, the user might still be misled simply because they may not read the final response carefully and notice the incorrect details. From a user perspective, this may be interpreted as inaccurate information.
 
 ### Sequential Tool Calls
-We will now extend our tooling to allow for more flexible responses. I want to move on to more sophisticated response generation by doing multiple sequential tool calls. For instance, what if we also have token usage history, number of queries, etc. and we want to apply the aggregation function to all of these numerical data? What if we want to be able to use spending data in other ways? Let's refactor our `generate_spending_response` function: We can separate the aggregation step and getting the spending data into 2 separate functions. Let's have a tool that can apply the aggregation function to any numerical data and call it `apply_aggregation`. Here is an example execution flow:
+We will now move on to a more sophisticated system, by doing multiple sequential tool calls. This will increase flexibility of our responses, as well as extendability to more use cases or type of questions. 
+
+For instance, what if we also have token usage history, number of queries, etc. and we want to apply the aggregation function to all of these numerical data? What if we want to be able to use spending data in other ways? Let's refactor our `generate_spending_response` function and separate getting the spending data step and the aggregation step into 2 separate functions. Let's have a tool that can apply the aggregation function to any numerical data and call it `apply_aggregation`. Here is an example execution flow with this new design:
 
 ![LLM Response Flow with Aggregation](/assets/img/hall-free-llm/flowchart_2.svg){: width="650px" .mx-auto.d-block :}
 
@@ -154,10 +156,8 @@ To fix this, we can change the design so that the LLM does not pass the data to 
 
 ![LLM Response Flow with Aggregation Fixed](/assets/img/hall-free-llm/flowchart_4.svg){: width="800px" .mx-auto.d-block :}
 
-Finally, I would want to add a tool that LLM can call to pass the case to a human agent. So if the LLM decides the current tooling is not sufficient to answer the user's question, it can call this tool to escalate the case to a human agent.
-
 ### Final Thoughts
 
-This design allows us to build an AI support agent that never hallucinates, while still being able to answer complex questions. The LLM is used as an orchestrator to gather the necessary information, pass pointers to data around, and call final response tools. We can design more sophisticated tooling to increase the coverage and flexibility of the responses. For example, we can add response formatting tools that can format the response in certain ways, such as generating a table, sorting the data etc.
+This design allows us to build an AI support agent that never hallucinates, while still being able to answer complex questions. The LLM is used as an orchestrator to gather the necessary information, pass pointers to data around, and call final response tools. We can design more sophisticated tooling to increase the coverage and flexibility of the responses. For example, we can add response formatting tools that can format the response in certain ways, such as generating a table, sorting the data etc. For unsupported questions, the LLM can call an escalation tool to pass the case to a human agent.
 
-We traded off flexibility for correctness, and this is a deliberate design choice. I do believe that this trade-off is acceptable, in fact absolutely necessary, for many applications, such as medical advice, legal advice, tax return assist etc. Customer support applications too, considering Cursor's trouble. In these applications, it is crucial that the information provided is factually correct. If no information is provided at all due to limitations of the tooling, the user can still find other ways to get the information they need. For example, a doctor can check if medical AI assistant can provide any relevant information, and if not, they can consult medical literature like they normally would.
+We traded off flexibility for correctness, and this is a deliberate design choice. I do believe that this trade-off is acceptable, in fact absolutely necessary, for many applications, such as medical advice, legal advice, tax return assist etc. Customer support applications too, considering Cursor's trouble. In these applications, it is crucial that the information provided is factually correct. If no information is provided at all due to limitations of the tooling, the user can still find other ways to get the information they need (or the agent can escalate to human support). For example, a doctor can check if medical AI assistant can provide any relevant information, and if not, they can consult medical literature like they normally would.
